@@ -1,4 +1,11 @@
 html, body {
     margin: 0;
-    
+}
+
+span.opptatt {
+    color: red;
+}
+
+span.ledig {
+    color: green;
 }

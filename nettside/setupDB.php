@@ -32,14 +32,16 @@
         brukerID INT(5) NOT NULL AUTO_INCREMENT,
         brukernavn VARCHAR(10) NOT NULL UNIQUE,
         passord VARCHAR(32) NOT NULL,
+        rettigheter INT(1) NOT NULL DEFAULT 0,
         PRIMARY KEY (brukerID));
     ");
     $sql->execute() or die('Noe gikk galt. Tabell 2 kunne ikke opprettes, prosessen stoppes. (PS. slett tabellen "rom" før du prøver på nytt).');
     
     $sql = $database->prepare("
-        INSERT INTO brukere (brukernavn, passord) VALUES
-        ('bruker1', '" . md5('passord') . "'),
-        ('bruker2', '" . md5(123456) . "');
+        INSERT INTO brukere (brukernavn, passord, rettigheter) VALUES
+        ('bruker1', '" . md5('passord') . "', 0),
+        ('bruker2', '" . md5(123456) . "', 0),
+        ('admin', '" . md5('adminPassord') . "', 1);
     ");
     $sql->execute() or die('Noe gikk galt ved tabell 1, slett tabellene "rom" og "brukere", for så å starte på nytt.');
     // Tabell 2 slutt
