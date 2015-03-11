@@ -16,4 +16,9 @@
     function timesFormatering($tiden) {
         return date('H:i', strtotime($tiden));
     }
+
+    function validDato($dato, $format = 'd.m.Y') {
+        $d = DateTime::createFromFormat($format, $dato);
+        return $d && $d->format($format) == $dato;
+    }
 ?>

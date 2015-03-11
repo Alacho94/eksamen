@@ -1,4 +1,5 @@
 <?php
+    $tittel = 'Book rom';
     require 'core/init.php';
 
     $filter = "";
@@ -6,7 +7,7 @@
     $projektor = '';
     $dato = dagensDato();
 
-    if (isset($_GET['personer'])) {
+    if (isset($_GET['personer']) && !empty($_GET['personer'])) {
         $kapasitet = $_GET['personer'];
         
         if (empty($filter)) $filter = " WHERE";
@@ -18,7 +19,7 @@
         }
     }
 
-    if (isset($_GET['projektor'])) {
+    if (isset($_GET['projektor']) && !empty($_GET['projektor'])) {
         $projektor = $_GET['projektor'];
         
         if (empty($filter)) {
@@ -34,13 +35,24 @@
         }
     }
 
-    if (isset($_GET['dato'])) {
-        $dato = $_GET['dato'];
+    if (isset($_GET['dato']) && !empty($_GET['dato'])) {
+        if (validDato($_GET['dato'])) {
+            $dato = $_GET['dato'];
+        } else {
+            $error[] = 'Datoen du har oppgitt er ugyldig, datoen blir rettet til dagens dato.';
+        }
     }
     
+    if (isset($_GET['suksess']) && empty($_GET['suksess'])) {
+        echo '<script type="text/javascript">alert("Suksess, du har booket et rom.");</script>';
+    } else if (isset($_GET['error']) && !empty($_GET['error'])) {
+        echo '<script type="text/javascript">alert("' . $_GET['error'] . '");</script>';
+    }
+
     require 'core/header.php';
 ?>
     <h1>Velkommen</h1>
+    <?php if (isset($error)) print_r($error); ?>
     <form method="get" action="index.php">
         <select name="personer">
             <option <?php if ($kapasitet < 2 || $kapasitet > 4) echo 'selected="selected"'; ?> disabled="disabled" value="">Velg kapasitet</option>
@@ -59,6 +71,7 @@
         /
         <input type="submit" value="Finn rom">
     </form>
+    <div id="romOversikt">
 <?php
     $dato = date('Y-m-d', strtotime($dato));
 
@@ -69,9 +82,14 @@
     $sql->execute();
 
     while ($element = $sql->fetch()) {
-        echo '<div class="rom"><div class="romDetaljer">RomNr: ' . $element->romNr . ', Kapasitet: ' . $element->kapasitet . ', Projektor: ' . harProjektor($element->projektor) . '</div><div class="romTimer">';
+        echo '
+            <div class="rom inaktiv">
+                <div class="romDetaljer">RomNr: ' . $element->romNr . ', Kapasitet: ' . $element->kapasitet . ', Projektor: ' . harProjektor($element->projektor) . '
+                </div>
+                <div class="romTimer">
+        ';
         
-        echo '<form action="bookRom.php" method="post">';
+        echo '<form id="timesBestilling" action="bookRom.php" method="post"><div class="checks">';
         
         $sql2 = $database->prepare("SELECT * FROM timer");
         $sql2->setFetchMode(PDO::FETCH_OBJ);
@@ -86,22 +104,25 @@
             ");
             $rom->execute();
             if ($rom->fetchColumn()) {
-                echo '<span class="opptatt"><input name="timer[]" disabled="disabled" value="' . $tid->timeID . '" type="checkbox">' . timesFormatering($tid->fraTid) . ' - ' . timesFormatering($tid->tilTid) . '</span><br />';
+                echo '<div class="timeCheck opptatt"><input id="' . $element->romNr . $tid->timeID . '" name="timer[]" disabled="disabled" value="' . $tid->timeID . '" type="checkbox"><label for="'. $element->romNr . $tid->timeID . '">' . timesFormatering($tid->fraTid) . ' - ' . timesFormatering($tid->tilTid) . '</label></div>';
             } else {
-                echo '<span class="ledig"><input name="timer[]" value="' . $tid->timeID . '" type="checkbox">' . timesFormatering($tid->fraTid) . ' - ' . timesFormatering($tid->tilTid) . '</span><br />';
+                echo '<div class="timeCheck ledig"><input id="' . $element->romNr . $tid->timeID . '" name="timer[]" value="' . $tid->timeID . '" type="checkbox"><label for="' . $element->romNr . $tid->timeID . '">' . timesFormatering($tid->fraTid) . ' - ' . timesFormatering($tid->tilTid) . '</label></div>';
             }
             
         }
         
+        echo '</div>';
         echo '<input type="hidden" name="romnr" value="' . $element->romNr . '">';
         echo '<input type="hidden" name="dato" value="' . $dato . '">';
         echo '<input type="text" name="brukernavn" placeholder="Brukernavn" maxlength="10">';
         echo '<input type="password" name="passord" placeholder="Passord">';
-        echo '<br />';
         echo '<input type="submit" value="Hold av rom">';
         echo '</form>';
         
         echo '</div></div>';
     }
+?>
+    </div>
+<?php
     require 'core/footer.php';
 ?>

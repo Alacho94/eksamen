@@ -9,7 +9,6 @@
     	$database = new PDO("mysql:host=$host;dbname=$db", "$bruker", "$pass");
     	$database -> setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     } catch(PDOException $e) {
-    	$error[] = "Beklager, det oppstod et problem med databasen. Gi beskjed til administrasjonen";
+    	echo "Beklager, det oppstod et problem med databasen. Gi beskjed til administrasjonen";
     }
-
 ?>

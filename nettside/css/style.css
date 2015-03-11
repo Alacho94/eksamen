@@ -1,11 +1,253 @@
 html, body {
     margin: 0;
+    background-color: #fdfdf8;
 }
 
-span.opptatt {
-    color: red;
+#container {
+    width: 960px;
+    margin:  0 auto;
 }
 
-span.ledig {
-    color: green;
+/* Header start */
+#header {
+    width: 100%;
+    height: 110px;
+}
+
+#logo {
+    height: 80px;
+    margin: 15px 0 ;
+    float: left;
+}
+
+#menu {
+    height: 46px;
+    margin: 32px 0;
+    float: right;
+}
+
+#menu ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    overflow: hidden;
+}
+
+#menu ul li {
+    overflow: hidden;
+    float: left;
+    margin-left: 10px;
+}
+
+#menu ul li a {
+    height: 42px;
+    padding: 0 20px;
+    display: block;
+    float: left;
+    text-align: center;
+    line-height: 42px;
+    text-decoration: none;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 1em;
+    color: #555;
+    border: 2px solid #555;
+    background-color: rgba(255,255,255,0);
+    transition: .2s ease-in-out;
+}
+
+#menu ul li a:hover {
+    background-color: #e08b8b;
+    border: 2px solid #e08b8b;
+    color: #FFF;
+}
+/* Header slutt */
+
+/* Rom deler start */
+.rom {
+    width: 950px;
+    border: 5px solid #f0e1cc;
+    margin-bottom: 14px;
+    display: block;
+    overflow: hidden;
+    transition: .3s ease-in-out;
+    background-color: #f0f0f0;
+}
+
+.rom.inaktiv {
+    height: 50px;
+}
+
+.rom.aktiv {
+    height: 230px;
+}
+
+.rom.aktiv .romDetaljer {
+    background-color: #FFF;
+    color: #333;
+    cursor: default;
+    background-position: 910px -50px;
+    background-size: 26px;
+}
+
+.rom.inaktiv .romDetaljer {
+    cursor: pointer;
+    background: 
+        url('../img/dropDown.png') no-repeat,
+        #f0e1cc;
+    background-position: 910px 14px;
+    background-size: 22px;
+    background-color: #f0e1cc;
+}
+
+.rom.inaktiv:hover > .romDetaljer {
+    background-color: #FFF;
+}
+
+.rom.inaktiv:hover {
+    border: 5px solid #FFF;
+}
+
+.romDetaljer {
+    width: 900px;
+    height: 50px;
+    padding: 0 30px;
+    display: block;
+    line-height: 50px;
+    cursor: pointer;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    color: #444;
+    float: left;
+}
+
+/* Timetabell start */
+.checks {
+    display: block;
+    float: left;
+    width: 660px;
+    height: 180px;
+    overflow: hidden; 
+}
+
+.timeCheck {
+    display: block;
+    width: 220px;
+    height: 60px;
+    float: left;
+    position: relative;
+}
+
+.timeCheck input[type="checkbox"] {
+    display: none;
+}
+
+.timeCheck label {
+    width: 160px;
+    height: 60px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    text-align: center;
+    line-height: 60px;
+    color: #FFF;
+    padding-left: 60px;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+
+.timeCheck.ledig label {
+    background: 
+        url('../img/check.png') no-repeat,
+        rgb(126, 197, 167);
+    background-size: 30px;
+    background-position: 15px -30px;
+    cursor: pointer;
+}
+
+.timeCheck.ledig input[type="checkbox"]:checked + label, .timeCheck.ledig label:hover {
+    background: 
+        url('../img/check.png') no-repeat,
+        rgb(81, 157, 125);
+    background-size: 30px;
+    background-position: 15px -30px;
+}
+
+.timeCheck.ledig input[type="checkbox"]:checked + label {
+    background-position: 15px 15px;
+}
+
+.timeCheck.opptatt label {
+    background: 
+        url('../img/cross.png') no-repeat,
+        rgb(255, 112, 97);
+    background-size: 24px;
+    background-position: 18px 18px;
+    text-decoration: line-through;
+}
+
+form#timesBestilling input {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    outline: none;
+}
+
+form#timesBestilling input[type="text"], form#timesBestilling input[type="password"] {
+    display: block;
+    width: 230px;
+    height: 28px !important;
+    border: 0;
+    float: left;
+    font-size: 1em;
+    color: #555;
+    padding: 0;
+    clear: right;
+    background-color: #f0f0f0;
+    border-bottom: 2px solid #b1b1b1;
+}
+
+form#timesBestilling input[type="text"] {
+    margin: 24px 30px 6px 30px;
+}
+
+form#timesBestilling input[type="password"] {
+    margin: 6px 30px 24px 30px;
+}
+
+form#timesBestilling input[type="submit"] {
+    display: block;
+    width: 290px;
+    height: 56px;
+    border: 0;
+    margin: 0;
+    cursor: pointer;
+    background-color: rgb(97, 175, 202);
+    font-size: 1em;
+    color: #fff;
+    font-weight: 600;
+}
+
+form#timesBestilling input[type="submit"]:hover, form#timesBestilling input[type="submit"]:focus {
+    background-color: rgb(127, 190, 211);
+}
+
+form#timesBestilling input[type="text"]:focus, form#timesBestilling input[type="password"]:focus {
+    color: rgb(97, 175, 202);
+}
+/* Timetabell slutt */
+/* Rom deler slutt */
+
+/* Alt som bruker transition .2s */
+#menu ul li a, .romDetaljer, form#timesBestilling input, form#timesBestilling label {
+    transition: .2s ease-in-out;
+    -webkit-transition: .2s ease-in-out;
+    -moz-transition: .2s ease-in-out;
+    -ms-transition: .2s ease-in-out;
+    -o-transition: .2s ease-in-out;
+}
+
+/* Alt som bruker transition .4s */
+.rom {
+    transition: .4s ease-in-out;
+    -webkit-transition: .4s ease-in-out;
+    -moz-transition: .4s ease-in-out;
+    -ms-transition: .4s ease-in-out;
+    -o-transition: .4s ease-in-out;
 }
