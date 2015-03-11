@@ -12,13 +12,13 @@
     	if(isset($_POST['brukernavn']) AND !empty($_POST['brukernavn'])) {
     		$brukernavn = $_POST['brukernavn'];
     	} else {
-    		$error[] = "Brukernavnet eksisterer ikke";
+    		error("Du må skrive et brukernavn");
     	}
     	if(isset($_POST['passord']) AND !empty($_POST['passord'])) {
     		$passord = $_POST['passord'];
     		$passord = md5($passord);	// krypter passordet med MD5
     	} else {
-    		$error[] = "Du glemte å skrive passord";
+    		error("Du må skrive et passord");
     	}
 
     	// Hent bruker ID og tilhørende passord fra database
@@ -36,7 +36,7 @@
 
 			// Lagre bestilling av rom i databasen på rom, bruker, dato
 		    $sql = $database->prepare("
-		        INSERT INTO `pj2100`.`booking` (`brukerID`, `romNr`, `dato`) VALUES (" . $userID . "," . ($romNr) . ", '" . $dato . "') 
+		        INSERT INTO " . $db . ".`booking` (`brukerID`, `romNr`, `dato`) VALUES (" . $userID . "," . ($romNr) . ", '" . $dato . "') 
 		    ");
 		    $sql->execute();
 
@@ -46,7 +46,7 @@
 		    // Lagre bestilling av timene brukeren har valgt
 			foreach ($timer as $timeID){
 				$sql = $database->prepare("
-		        	INSERT INTO `pj2100`.`bookingtimer` (`bookingID`, `timeID`) VALUES ( " . $bookingID . "," . $timeID . ") 
+		        	INSERT INTO " . $db . ".`bookingTimer` (`bookingID`, `timeID`) VALUES ( " . $bookingID . "," . $timeID . ") 
 		   		");
 		    $sql->execute();
 			}
@@ -57,7 +57,13 @@
 
 		// avbryt bestilling dersom brukernavn ikke eksisterer eller passord er feil
 		else {
-			$error[] =  "Feil brukernavn/passord";
+			error("Feil brukernavn/passord");
 		}
+	}
+
+	function error($msg) {
+		$error[] =  $msg;
+		header("Location: index.php?error");
+		exit;
 	}
 ?>
