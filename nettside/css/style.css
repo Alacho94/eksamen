@@ -62,6 +62,74 @@ html, body {
 }
 /* Header slutt */
 
+/* Intro start */
+h1, p {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+p {
+    color: #555;
+}
+/* Intro slutt */
+
+/* Filter form start */
+#filter {
+    display: block;
+    width: 960px;
+    overflow: hidden;
+}
+
+#filter * {
+    height: 50px;
+    display: block;
+    margin: 0;
+    border-radius: 0;
+    float: left;
+    outline: none;
+    -webkit-appearance: none;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    margin-bottom: 20px;
+    border: 0;
+    font-size: 1em;
+}
+
+#filter select {
+    width: 240px;
+    padding: 0 20px;
+    cursor: pointer;
+    color: #FFF;
+    position: relative;
+    background: 
+        url('../img/drop2.png') no-repeat,
+        #5a5a5a;
+    background-size: 24px;
+    background-position: 194px 13px;
+}
+
+#filter select:hover, #filter input[type="text"]:hover, #filter input[type="text"]:focus {
+    background-color: rgb(255, 208, 102);
+}
+
+#filter input[type="text"] {
+    width: 200px;
+    padding: 0 20px;
+    background-color: #5a5a5a;
+    color: #FFF;
+}
+
+#filter input[type="submit"] {
+    width: 240px;
+    padding: 0;
+    cursor: pointer;
+    background-color: rgb(121, 85, 128);
+    color: #FFF;
+}
+
+#filter input[type="submit"]:hover {
+    background-color: rgb(140, 105, 147);
+}
+/* Filter form slutt */
+
 /* Rom deler start */
 .rom {
     width: 950px;
@@ -97,6 +165,7 @@ html, body {
     background-position: 910px 14px;
     background-size: 22px;
     background-color: #f0e1cc;
+    color: rgb(145, 103, 80);
 }
 
 .rom.inaktiv:hover > .romDetaljer {
@@ -191,30 +260,31 @@ form#timesBestilling input {
 
 form#timesBestilling input[type="text"], form#timesBestilling input[type="password"] {
     display: block;
-    width: 230px;
+    width: 210px;
     height: 28px !important;
     border: 0;
     float: left;
     font-size: 1em;
     color: #555;
-    padding: 0;
+    padding: 0 20px 0 0;
     clear: right;
     background-color: #f0f0f0;
     border-bottom: 2px solid #b1b1b1;
+    -webkit-appearance: none;
 }
 
 form#timesBestilling input[type="text"] {
-    margin: 24px 30px 6px 30px;
+    margin: 24px 0 6px 30px;
 }
 
 form#timesBestilling input[type="password"] {
-    margin: 6px 30px 24px 30px;
+    margin: 6px 0 24px 30px;
 }
 
 form#timesBestilling input[type="submit"] {
     display: block;
     width: 290px;
-    height: 56px;
+    height: 60px;
     border: 0;
     margin: 0;
     cursor: pointer;
@@ -222,6 +292,7 @@ form#timesBestilling input[type="submit"] {
     font-size: 1em;
     color: #fff;
     font-weight: 600;
+    -webkit-appearance: none;
 }
 
 form#timesBestilling input[type="submit"]:hover, form#timesBestilling input[type="submit"]:focus {
@@ -231,11 +302,25 @@ form#timesBestilling input[type="submit"]:hover, form#timesBestilling input[type
 form#timesBestilling input[type="text"]:focus, form#timesBestilling input[type="password"]:focus {
     color: rgb(97, 175, 202);
 }
+
+form#timesBestilling i.fa {
+    color: #b1b1b1;
+    font-size: 18px;
+    float: left;
+}
+
+.brukerIkon {
+    margin: 29px 0 11px -18px;
+}
+
+.passordIkon {
+    margin: 11px 0 29px -18px;
+}
 /* Timetabell slutt */
 /* Rom deler slutt */
 
 /* Alt som bruker transition .2s */
-#menu ul li a, .romDetaljer, form#timesBestilling input, form#timesBestilling label {
+#menu ul li a, .romDetaljer, form#timesBestilling input, form#timesBestilling label, #filter * {
     transition: .2s ease-in-out;
     -webkit-transition: .2s ease-in-out;
     -moz-transition: .2s ease-in-out;

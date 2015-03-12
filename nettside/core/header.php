@@ -8,8 +8,20 @@
 		<link rel="shortcut icon" href="img/icon.png" type="image/x-icon" />
         <link rel="stylesheet" href="css/style.css" type="text/css" />
         
+        <!-- Font Awesome ikoner -->
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+        
         <!-- JS start -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+        <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/themes/smoothness/jquery-ui.css" />
+        <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/jquery-ui.min.js"></script>
+        <script>
+            $(function() {
+                $('#dato').datepicker({
+                    dateFormat: 'dd.mm.yy'
+                });
+            });
+        </script>
         <script>
             $(document).ready(function() {
                 $('.rom.inaktiv').on('click', aktivtRom);

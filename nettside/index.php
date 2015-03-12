@@ -42,33 +42,30 @@
             $error[] = 'Datoen du har oppgitt er ugyldig, datoen blir rettet til dagens dato.';
         }
     }
-    
+
+    require 'core/header.php';
     if (isset($_GET['suksess']) && empty($_GET['suksess'])) {
         echo '<script type="text/javascript">alert("Suksess, du har booket et rom.");</script>';
     } else if (isset($_GET['error']) && !empty($_GET['error'])) {
         echo '<script type="text/javascript">alert("' . $_GET['error'] . '");</script>';
     }
-
-    require 'core/header.php';
 ?>
-    <h1>Velkommen</h1>
+    <h1>Westerdals rombooking</h1>
+    <p>Velkommen til Westerdals Oslo ACTs tjeneste for å booke grupperom.</p>
     <?php if (isset($error)) print_r($error); ?>
-    <form method="get" action="index.php">
+    <form id="filter" method="get" action="index.php">
         <select name="personer">
             <option <?php if ($kapasitet < 2 || $kapasitet > 4) echo 'selected="selected"'; ?> disabled="disabled" value="">Velg kapasitet</option>
             <option <?php if ($kapasitet == 2) echo 'selected="selected"'; ?> value="2">2 personer</option>
             <option <?php if ($kapasitet == 3) echo 'selected="selected"'; ?> value="3">3 personer</option>
             <option <?php if ($kapasitet == 4) echo 'selected="selected"'; ?> value="4">4 personer</option>
         </select>
-        /
         <select name="projektor">
             <option <?php if (empty($projektor)) echo 'selected="selected"'; ?> disabled="disabled" value="">Velg projektor</option>
             <option <?php if ($projektor == 'ja') echo 'selected="selected"'; ?> value="ja">Ja</option>
             <option <?php if ($projektor == 'nei') echo 'selected="selected"'; ?> value="nei">Nei</option>
         </select>
-        /
         <input type="text" name="dato" id="dato" placeholder="Dato (dd.mm.åååå)" value="<?php echo $dato; ?>">
-        /
         <input type="submit" value="Finn rom">
     </form>
     <div id="romOversikt">
@@ -114,8 +111,8 @@
         echo '</div>';
         echo '<input type="hidden" name="romnr" value="' . $element->romNr . '">';
         echo '<input type="hidden" name="dato" value="' . $dato . '">';
-        echo '<input type="text" name="brukernavn" placeholder="Brukernavn" maxlength="10">';
-        echo '<input type="password" name="passord" placeholder="Passord">';
+        echo '<input type="text" name="brukernavn" placeholder="Brukernavn" maxlength="10"><i class="fa fa-user brukerIkon"></i>';
+        echo '<input type="password" name="passord" placeholder="Passord"><i class="fa fa-unlock-alt passordIkon"></i>';
         echo '<input type="submit" value="Hold av rom">';
         echo '</form>';
         
