@@ -57,8 +57,11 @@ html, body {
 
 #menu ul li a:hover {
     background-color: #e08b8b;
-    border: 2px solid #e08b8b;
     color: #FFF;
+}
+
+#menu ul li.aktiv a, #menu ul li a:hover {
+    border: 2px solid #e08b8b;
 }
 /* Header slutt */
 
@@ -111,23 +114,32 @@ p {
     appearance: none;
 }
 
-#filter select:hover, #filter input[type="text"]:hover, #filter input[type="text"]:focus {
+#filter select:hover, #filter select:focus, #filter input[type="text"]:hover, #filter input[type="text"]:focus {
     background-color: rgb(255, 208, 102);
+    color: #5a5a5a;
 }
 
 #filter input[type="text"] {
     width: 200px;
     padding: 0 20px;
-    background-color: #5a5a5a;
+    background:
+        url('../img/calendar.png') no-repeat,
+        #5a5a5a;
+    background-position: 200px;
+    background-size: 18px;
     color: #FFF;
 }
 
 #filter input[type="submit"] {
     width: 240px;
-    padding: 0;
+    padding: 0 20px 0 0;
     cursor: pointer;
-    background-color: rgb(121, 85, 128);
+    background: 
+        url('../img/search.png') no-repeat,
+        rgb(121, 85, 128);
     color: #FFF;
+    background-position: 150px;
+    background-size: 20px;
 }
 
 #filter input[type="submit"]:hover {
@@ -175,10 +187,6 @@ p {
 
 .rom.inaktiv:hover > .romDetaljer {
     background-color: #FFF;
-}
-
-.rom.inaktiv:hover {
-    border: 5px solid #FFF;
 }
 
 .romDetaljer {
@@ -345,12 +353,52 @@ form#timesBestilling i.fa {
 /* footer start */
 
 #footer {
-    padding-top: 75px;
     margin: 40px 0 4px 0;
-    background: url('../img/westerdasMonster.png') no-repeat;
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     line-height: 60px;
     text-align: center;
     color: #555;
 }
+
+span#border {
+    display: block;
+    background: url('../img/border.png') center center repeat-x;
+    background-size: 2.5rem;
+    height: 2.5rem;
+}
+
+ul#footerMenu {
+    display: block;
+    overflow: hidden;
+    list-style: none;
+    margin: 0 auto;
+    padding: 0;
+    text-align: center;
+}
+
+ul#footerMenu li {
+    margin: 0;
+    padding: 0;
+    float: left;
+    margin: 0 10px;
+    font-size: 15px;
+}
+
+ul#footerMenu li a {
+    color: #010101;
+}
+
+ul#footerMenu li a:hover {
+    color: #696969;
+}
 /* footer slutt */
+
+/* Fjerner en lilla border som er standard rundt bilde-linker i IE */
+a img {
+    border: none;
+}
+
+/* Fjerner dropdown knapp på select i IE */
+select::-ms-expand {
+    display: none !important;
+}

@@ -10,5 +10,6 @@
     	$database -> setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     } catch(PDOException $e) {
     	echo "Beklager, det oppstod et problem med databasen. Gi beskjed til administrasjonen";
+        exit();
     }
 ?>
