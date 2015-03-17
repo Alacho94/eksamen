@@ -1,4 +1,15 @@
 <?php
+    $createDB = false;
+    if ($createDB) {
+        try {
+            $dbh = new PDO("mysql:host=localhost", "root", "root"); // login med bruker
+            $dbh->execute("CREATE DATABASE `PJ2100`;")  // opprett database
+            or die(print_r($dbh->errorInfo(), true));
+        } catch (PDOException $e) {
+            die("DB feil: ". $e->getMessage());
+        }
+    }   
+
     require 'core/init.php';
 
     // Tabell 1 start
