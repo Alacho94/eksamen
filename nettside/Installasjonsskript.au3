@@ -54,17 +54,17 @@ WEnd
 
 ; Konfigurer databasefilen db.php
 Local $sFile = @ScriptDir & "\core\database\db.php"
-replaceInFile($sFile, "localhost", $dbHost)
-replaceInFile($sFile, "PJ2100", $dbNavn)
-replaceInFile($sFile, 'bruker = "root', 'bruker = "' & $uNavn)
-replaceInFile($sFile, 'pass = "root', 'pass = "' & $uPass)
+replaceInFile($sFile, 2, '    $host = "' & $dbHost & '";')
+replaceInFile($sFile, 3, '    $db = "' & $dbNavn & '";')
+replaceInFile($sFile, 4, '    $bruker = "' & $uNavn & '";')
+replaceInFile($sFile, 5, '    $pass = "' & $uPass & '";')
 
 ; Konfigurer database setup fila setupDB.php dersom bruker har valgt å opprette tabell
 If $opprettDB = 1 Then
 	Local $sFile = @ScriptDir & "\setupDB.php"
-	replaceInFile($sFile, "createDB = false", "createDB = true")
-	replaceInFile($sFile, '"mysql:host=localhost", "root", "root"', '"mysql:host=' & $dbHost & '", "' & $uNavn & '", "' & $uPass & '"')
-	replaceInFile($sFile, "PJ2100", $dbNavn)
+	replaceInFile($sFile, 2, "    $createDB = true;")
+	replaceInFile($sFile, 5, '            $dbh = new PDO("mysql:host=' & $dbHost & '", "' & $uNavn & '", "' & $uPass & '"); // login med bruker')
+	replaceInFile($sFile, 6, '            $dbh->exec("CREATE DATABASE IF NOT EXISTS `' & $dbNavn & '`;")  // opprett database')
 EndIf
 
 $msg = MsgBox(1, "Suksess", "Konfigurasjon fullført. Last opp innholdet i mappen 'nettside' til root på domene. Denne er ofte domene.domenavn/public_html." & @CRLF _
@@ -76,9 +76,9 @@ Sleep(3000)
 MsgBox(0, "Suksess", "Installasjon fullført. Slett filen setupDB.php fra nettsiden.")
 
 ; Endre databasefilen db.php
-Func replaceInFile($sFile, $search, $replace)
-	Local $replaceString = _ReplaceStringInFile($sFile, $search, $replace)
-	If $replaceString = -1 Then
+Func replaceInFile($sFile, $line, $replace)
+	Local $replaceString = _FileWriteToLine($sFile, $line, $replace, 1)
+	If $replaceString = 0 Then
 		errorMsg("Kunne ikke endre filen: " & $sFile & " Error: " & @error)
 		Exit
 	EndIf
