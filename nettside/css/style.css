@@ -114,7 +114,7 @@ p {
     appearance: none;
 }
 
-#filter select:hover, #filter select:focus, #filter input[type="text"]:hover, #filter input[type="text"]:focus {
+#filter select:hover, #filter select:focus, #filter input[type="text"]:hover, #filter input[type="text"]:focus, #hentDinTabell input[type="text"]:hover, #hentDinTabell input[type="text"]:focus, #hentDinTabell input[type="password"]:hover, #hentDinTabell input[type="password"]:focus {
     background-color: rgb(255, 208, 102);
     color: #5a5a5a;
 }
@@ -142,7 +142,7 @@ p {
     background-size: 20px;
 }
 
-#filter input[type="submit"]:hover {
+#filter input[type="submit"]:hover, #filter input[type="submit"]:focus, #hentDinTabell input[type="submit"]:hover, #hentDinTabell input[type="submit"]:focus {
     background-color: rgb(140, 105, 147);
 }
 /* Filter form slutt */
@@ -169,7 +169,6 @@ p {
 .rom.aktiv .romDetaljer {
     background-color: #FFF;
     color: #333;
-    cursor: default;
     background-position: 910px -50px;
     background-size: 26px;
 }
@@ -199,6 +198,10 @@ p {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     color: #444;
     float: left;
+}
+
+.romRomNr, .romKapasitet, .romProjektor {
+    margin-right: 70px;
 }
 
 /* Timetabell start */
@@ -332,8 +335,171 @@ form#timesBestilling i.fa {
 /* Timetabell slutt */
 /* Rom deler slutt */
 
+/* Endre booking start */
+#hentDinTabell {
+    overflow: hidden;
+    width: 660px;
+    margin:  0 auto;
+}
+
+#hentDinTabell input[type="text"], #hentDinTabell input[type="password"] {
+    display: block;
+    height: 50px;
+    width: 180px;
+    padding: 0 20px;
+    border: none;
+    float: left;
+    outline: none;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    background-color: #5a5a5a;
+    font-size: 1em;
+    color: #FFF;
+}
+
+#hentDinTabell input[type="submit"] {
+    border: none;
+    outline: none;
+    width: 220px;
+    height: 50px;
+    cursor: pointer;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: .9em;
+    background-color: rgb(121, 85, 128);
+    color: #FFF;
+}
+
+/* Rom oversikt */
+
+#romOversikt {
+    display: block;
+    overflow: hidden;
+}
+
+.booketRom {
+    display: block;
+    width: 300px;
+    height: 300px;
+    float: left;
+    margin-bottom: 30px;
+    background-color: #f0e1cc;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    position: relative;
+}
+
+.booketRom:nth-child(3n-1) {
+    margin: 0 30px;
+}
+
+.booketRom:hover {
+    background-color: rgb(126, 197, 167);
+}
+
+.booketRom:hover *, .booketRom:hover .booketRomNr i.fa, .booketRom:hover .bookingDato i.fa, .booketRom:hover .kapasitet i.fa, .booketRom:hover .projektor i.fa, .booketRom:hover .tidsRom i.fa {
+    color: #FFF;
+}
+
+.booketRom:hover > .bookingEier, .booketRom:hover > .bookingEier i.fa {
+    color: rgb(54, 124, 95) !important;
+}
+
+.bookingEier {
+    position: absolute;
+    top: 7px;
+    left: 7px;
+    color: rgb(145, 103, 80);
+}
+
+.bookingEier i.fa {
+    color: rgb(145, 103, 80);
+}
+
+.bookingDato {
+    position: absolute;
+    width: 130px;
+    left: 85px;
+    top: 50px;
+    color: #000;
+    font-size: 1em;
+    text-align: center;
+}
+
+.booketRomNr i.fa, .bookingDato i.fa, .kapasitet i.fa, .projektor i.fa, .tidsRom i.fa {
+    margin-right: 5px;
+    font-size: 1.2em;
+    color: #000;
+}
+
+.booketRomNr {
+    width: 130px;
+    position: absolute;
+    top: 90px;
+    left: 85px;
+    font-size: 1em;
+    color: 5a5a5a;
+    text-align: center;
+}
+
+.kapasitet, .projektor {
+    width: 80px;
+    position: absolute;
+    top: 130px;
+    font-size: 1em;
+    text-align: center;
+}
+
+.kapasitet {
+    left:70px;
+}
+
+.projektor {
+    right: 70px;
+}
+
+.tidsRom {
+    width: 130px;
+    position: absolute;
+    left: 85px;
+    top: 170px;
+    text-align: center;
+}
+
+.booketRom form {
+    position: absolute;
+    display: block;
+    width: 160px;
+    height: 50px;
+    left: 70px;
+    top: 210px;
+}
+
+.booketRom form input {
+    display: block;
+    width: 160px;
+    height: 50px;
+    border: none;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 0.9em;
+    background-color: rgb(255, 112, 97);
+    color: rgb(119, 24, 14) !important;
+    cursor: pointer;
+    outline: none;
+}
+
+.booketRom form input:hover {
+    background-color: rgb(147, 36, 24);
+    color: rgb(255, 112, 97) !important;
+}
+
+.ingenResultater {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: .9em;
+    padding-left: 20px;
+    color: rgb(255, 112, 97);
+}
+/* Endre booking slutt */
+
 /* Alt som bruker transition .2s */
-#menu ul li a, .romDetaljer, form#timesBestilling input, form#timesBestilling label, #filter * {
+#menu ul li a, .romDetaljer, form#timesBestilling input, form#timesBestilling label, #filter *, #sosialeMedier ul li a, #hentDinTabell input, .booketRom, .booketRom * {
     transition: .2s ease-in-out;
     -webkit-transition: .2s ease-in-out;
     -moz-transition: .2s ease-in-out;
@@ -350,14 +516,27 @@ form#timesBestilling i.fa {
     -o-transition: .4s ease-in-out;
 }
 
-/* footer start */
+/* Error handling */
 
-#footer {
-    margin: 40px 0 4px 0;
+ul.error {
+    list-style: none;
+    width: 660px;
+    margin: 10px auto;
+    padding: 0;
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    line-height: 60px;
-    text-align: center;
-    color: #555;
+    font-weight: bold;
+    font-size: 0.8em;
+}
+
+ul.error li {
+    color: rgb(255, 112, 97);
+}
+
+/* footer start */
+#footer {
+    margin:  0 auto;
+    width: 960px;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
 span#border {
@@ -365,6 +544,58 @@ span#border {
     background: url('../img/border.png') center center repeat-x;
     background-size: 2.5rem;
     height: 2.5rem;
+    margin-top: 50px;
+}
+
+#footerLogo {
+    display: block;
+    width: 200px;
+    margin: 60px auto 0 auto;
+}
+
+#sosialeMedier {
+    display: block;
+    margin: 80px auto;
+    overflow: hidden;
+    width: 312px;
+}
+
+#sosialeMedier span {
+    display: block;
+    color: #000;
+    font-weight: bold;
+    font-size: 0.8em;
+    text-align: center;
+}
+
+#sosialeMedier ul {
+    list-style: none;
+    margin: 0 auto;
+    padding: 0;
+    text-align: center;
+}
+
+#sosialeMedier ul li {
+    text-align: center;
+}
+
+#sosialeMedier ul li a {
+    display: inline;
+    height: 80px;
+    width: 80px;
+    border: 2px solid #000;
+    color: #000;
+    border-radius: 100%;
+    text-align: center;
+    line-height: 80px;
+    font-size: 36px;
+    float: left;
+    margin: 10px;
+}
+
+#sosialeMedier ul li a:hover {
+    background-color: #000;
+    color: #fdfdf8;
 }
 
 ul#footerMenu {
@@ -377,9 +608,9 @@ ul#footerMenu {
 }
 
 ul#footerMenu li {
+    display: inline;
     margin: 0;
     padding: 0;
-    float: left;
     margin: 0 10px;
     font-size: 15px;
 }
@@ -390,6 +621,15 @@ ul#footerMenu li a {
 
 ul#footerMenu li a:hover {
     color: #696969;
+}
+
+#lagetAv {
+    text-align: center;
+    display: block;
+    color: #555;
+    font-style: italic;
+    margin: 20px 0;
+    font-size: 14px;
 }
 /* footer slutt */
 

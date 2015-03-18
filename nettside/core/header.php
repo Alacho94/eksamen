@@ -30,17 +30,31 @@
                 });
             });
         </script>
+        
+        <script type="text/javascript">
+            function aapne($id) {
+                if ($($id).hasClass('aktiv')) {
+                    $($id).removeClass('aktiv');
+                    $($id).addClass('inaktiv');
+                } else{
+                    $('.rom').removeClass('aktiv');
+                    $('.rom').addClass('inaktiv');
+                    $($id).removeClass('inaktiv');
+                    $($id).addClass('aktiv');
+                }
+            }
+        </script>
         <script>
-            // Dette scriptet utfører drop-down på rommene (fjerner/legger til en klasse) vie jQuery.
-            $(document).ready(function() {
-                $('.rom.inaktiv').on('click', aktivtRom);
-            });
-
-            function aktivtRom() {
-                $('.rom').removeClass('aktiv');
-                $('.rom').addClass('inaktiv');
-                $(this).removeClass('inaktiv');
-                $(this).addClass('aktiv');
+            window.onload = function() {
+                if (window.location.hash) {
+                    $id = window.location.hash;
+                    aapne($id);
+                }
+            };
+        </script>
+        <script type="text/javascript">
+            function avbestilling() { 
+                return confirm("Er du sikker på at du vil fjerne denne reservasjonen?"); 
             }
         </script>
         <!-- JS slutt -->
@@ -48,12 +62,12 @@
     <body>
         <div id="container">
             <div id="header">
-                <a href="index.php"><img src="img/westerdalsLogoSidestilt.png" id="logo" alt="Westerdals Oslo ACT" /></a>
+                <a href="hjem"><img src="img/westerdalsLogoSidestilt.png" id="logo" alt="Westerdals Oslo ACT" /></a>
                 <div id="menu">
                     <ul>
                         <!-- Bruker php for å sjekke om siden er "aktiv", altså om det er den man er på -->
-                        <li <?php if ($tittel == "Book rom") echo 'class="aktiv"'; ?>></l><a href="index.php">Book rom</a></li>
-                        <li <?php if ($tittel == "Endre booking") echo 'class="aktiv"'; ?>><a href="endreBooking.php">Redigere booking</a></li>
+                        <li <?php if ($tittel == "Book rom") echo 'class="aktiv"'; ?>></l><a href="hjem">Book rom</a></li>
+                        <li <?php if ($tittel == "Endre booking") echo 'class="aktiv"'; ?>><a href="endreBooking">Redigere booking</a></li>
                     </ul>
                 </div>
             </div>

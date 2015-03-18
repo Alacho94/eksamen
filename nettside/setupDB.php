@@ -9,7 +9,7 @@
             die("DB feil: ". $e->getMessage());
         }
     }
-
+    
     require 'core/init.php';
 
     // Tabell 1 start
@@ -50,9 +50,10 @@
     
     $sql = $database->prepare("
         INSERT INTO brukere (brukernavn, passord, rettigheter) VALUES
+        ('admin', '" . md5('adminPassord') . "', 1),
         ('bruker1', '" . md5('passord') . "', 0),
         ('bruker2', '" . md5(123456) . "', 0),
-        ('admin', '" . md5('adminPassord') . "', 1);
+        ('testbruker', '" . md5('passord') . "', 0);
     ");
     $sql->execute() or die('Noe gikk galt ved tabell 1, slett tabellene "rom" og "brukere", for så å starte på nytt.');
     // Tabell 2 slutt

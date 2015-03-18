@@ -19,6 +19,10 @@
     function timesFormatering($tiden) {
         return date('H:i', strtotime($tiden));
     }
+
+    function datoFormatering($dato) {
+        return date('d.m.Y', strtotime($dato));
+    }
     
     // En funksjon som skjekker om datoen er en faktisk dato og at den matcher vår formatering.
     function validDato($dato, $format = 'd.m.Y') {
@@ -62,5 +66,66 @@
         } else {
             return false;
         }
+    }
+
+    function idFraBrukernavn($brukernavn) {
+        global $database;
+        
+        $sql = $database->prepare("SELECT brukerID FROM brukere WHERE brukernavn = :brukernavn;");
+        $sql->bindParam(':brukernavn', $brukernavn, PDO::PARAM_STR);
+        $sql->execute();
+        $id = $sql->fetchColumn();
+        
+        return $id;
+    }
+
+    function typeFraBrukernavn($brukernavn) {
+        global $database;
+        
+        $sql = $database->prepare("SELECT rettigheter FROM brukere WHERE brukernavn = :brukernavn;");
+        $sql->bindParam(':brukernavn', $brukernavn, PDO::PARAM_STR);
+        $sql->execute();
+        $type = $sql->fetchColumn();
+        
+        return $type;
+    }
+
+    function printError($error) {
+        return '<ul class="error"><li>' . implode('</li><li>', $error) . '</li></ul>';
+    }
+
+    function error($msg, $dato, $romNr) {
+		$error = $msg;
+        $dato = datoFormatering($dato);
+		header("Location: hjem?error=$error&dato=$dato#rom$romNr");
+		exit;
+	}
+
+    function totalTimer() {
+        global $database;
+        
+        $sql = $database->prepare("SELECT COUNT(*) FROM timer");
+        $sql->execute();
+        $verdi = $sql->fetchColumn();
+        
+        return $verdi;
+    }
+
+    function antallReserverteTimer($romNr, $dato) {
+        global $database;
+        
+        $dato = date('Y-m-d', strtotime($dato));
+        
+        $sql = $database->prepare("
+            SELECT COUNT(*) FROM bookingTimer
+            JOIN booking ON booking.bookingID = bookingTimer.bookingID
+            WHERE booking.romNr = :romNr AND booking.dato = :dato;
+        ");
+        $sql->bindParam(':romNr', $romNr, PDO::PARAM_INT);
+        $sql->bindParam(':dato', $dato, PDO::PARAM_STR);
+        $sql->execute();
+        $verdi = $sql->fetchColumn();
+        
+        return $verdi;
     }
 ?>
