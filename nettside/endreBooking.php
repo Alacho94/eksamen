@@ -72,7 +72,8 @@
             ORDER BY booking.dato ASC, timer.fraTid ASC
         ;");
         if (!empty($filter)) $sql->bindParam(':brukerID', $brukerID, PDO::PARAM_INT);
-        $sql->bindParam(':dagensDato', date("Y-m-d"), PDO::PARAM_INT);
+        $enDato = date("Y-m-d");
+        $sql->bindParam(':dagensDato', $enDato, PDO::PARAM_STR);
         $sql->setFetchMode(PDO::FETCH_OBJ);
         $sql->execute();
         
