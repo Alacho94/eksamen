@@ -22,15 +22,27 @@
         <!--[if lt IE 9]>
             <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
         <![endif]-->
-        <script>
+        
+        <!-- Denne css-filen er hentet fra en annen side, det er et tema for jQuery kalenderen som vi bruker -->
+        <link rel="stylesheet" href="https://raw.githubusercontent.com/rtsinani/jquery-datepicker-skins/master/css/melon.datepicker.css" />
+        <script type="text/javascript">
             // Dette scriptet legger til en kalender på dato-input med jQuery.
             $(function() {
                 $('#dato').datepicker({
-                    dateFormat: 'dd.mm.yy'
+                    dateFormat: 'dd.mm.yy',
+                    autoSize: true,
+                    minDate: 0,
+                    maxDate: 30,
+                    onSelect: function (dateText, inst) {
+                        $(this).parent('form').submit();
+                    },
+                    showOtherMonths: true,  
+                    dayNamesMin: ['Søn', 'Man', 'Tir', 'Ons', 'Tor', 'Fre', 'Lør'],  
+                    monthNames: ['Januar', 'Februar', 'Mars', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Desember'],  
                 });
             });
         </script>
-        
+        <!-- Dette scriptet åpner rom boks ved bruk av onclick -->
         <script type="text/javascript">
             function aapne($id) {
                 if ($($id).hasClass('aktiv')) {
@@ -44,7 +56,20 @@
                 }
             }
         </script>
-        <script>
+        
+        <!-- Dette skriptet markerer alle timer, ved bruk av onclick-->
+        <script type="text/javascript">
+            function velgAlle($id) {
+                if ($($id + ' .romTimer form input:checkbox').prop('checked')) {
+                    $($id + ' .romTimer form input:checkbox').prop('checked', false);
+                } else {
+                    $($id + ' .romTimer form input:checkbox').prop('checked', true);
+                }
+            }
+        </script>
+        
+        <!-- Dette skriptet ser etter anker i URL, og bruker denne for å åpne rom boks -->
+        <script type="text/javascript">
             window.onload = function() {
                 if (window.location.hash) {
                     $id = window.location.hash;
@@ -52,6 +77,8 @@
                 }
             };
         </script>
+        
+        <!-- Skript for popup advarsel om du er sikker på fjerning av reservasjon -->
         <script type="text/javascript">
             function avbestilling() { 
                 return confirm("Er du sikker på at du vil fjerne denne reservasjonen?"); 
