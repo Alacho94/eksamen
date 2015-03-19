@@ -3,8 +3,8 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost:3306
--- Generation Time: 11. Mar, 2015 09:14 AM
--- Server-versjon: 5.5.38
+-- Generation Time: Mar 19, 2015 at 09:27 AM
+-- Server version: 5.5.38
 -- PHP Version: 5.6.2
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -17,7 +17,7 @@ SET time_zone = "+01:00";
 -- --------------------------------------------------------
 
 --
--- Tabellstruktur for tabell `booking`
+-- Table structure for table `booking`
 --
 
 CREATE TABLE `booking` (
@@ -25,12 +25,12 @@ CREATE TABLE `booking` (
   `brukerID` int(5) NOT NULL,
   `romNr` int(4) NOT NULL,
   `dato` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
 --
--- Tabellstruktur for tabell `bookingTimer`
+-- Table structure for table `bookingTimer`
 --
 
 CREATE TABLE `bookingTimer` (
@@ -41,7 +41,7 @@ CREATE TABLE `bookingTimer` (
 -- --------------------------------------------------------
 
 --
--- Tabellstruktur for tabell `brukere`
+-- Table structure for table `brukere`
 --
 
 CREATE TABLE `brukere` (
@@ -49,21 +49,22 @@ CREATE TABLE `brukere` (
   `brukernavn` varchar(10) NOT NULL,
   `passord` varchar(32) NOT NULL,
   `rettigheter` int(1) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 --
--- Dataark for tabell `brukere`
+-- Dumping data for table `brukere`
 --
 
 INSERT INTO `brukere` (`brukerID`, `brukernavn`, `passord`, `rettigheter`) VALUES
-(1, 'bruker1', '56f491c56340a6fa5c158863c6bfb39f', 0),
-(2, 'bruker2', 'e10adc3949ba59abbe56e057f20f883e', 0),
-(3, 'admin', '239ab7c514067548cf9b3c897caa1403', 1);
+(1, 'admin', '239ab7c514067548cf9b3c897caa1403', 1),
+(2, 'bruker1', '56f491c56340a6fa5c158863c6bfb39f', 0),
+(3, 'bruker2', 'e10adc3949ba59abbe56e057f20f883e', 0),
+(4, 'testbruker', '56f491c56340a6fa5c158863c6bfb39f', 0);
 
 -- --------------------------------------------------------
 
 --
--- Tabellstruktur for tabell `rom`
+-- Table structure for table `rom`
 --
 
 CREATE TABLE `rom` (
@@ -73,7 +74,7 @@ CREATE TABLE `rom` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dataark for tabell `rom`
+-- Dumping data for table `rom`
 --
 
 INSERT INTO `rom` (`romNr`, `kapasitet`, `projektor`) VALUES
@@ -90,7 +91,7 @@ INSERT INTO `rom` (`romNr`, `kapasitet`, `projektor`) VALUES
 -- --------------------------------------------------------
 
 --
--- Tabellstruktur for tabell `timer`
+-- Table structure for table `timer`
 --
 
 CREATE TABLE `timer` (
@@ -100,7 +101,7 @@ CREATE TABLE `timer` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dataark for tabell `timer`
+-- Dumping data for table `timer`
 --
 
 INSERT INTO `timer` (`timeID`, `fraTid`, `tilTid`) VALUES
@@ -156,25 +157,25 @@ ALTER TABLE `timer`
 -- AUTO_INCREMENT for table `booking`
 --
 ALTER TABLE `booking`
-MODIFY `bookingID` int(5) NOT NULL AUTO_INCREMENT;
+MODIFY `bookingID` int(5) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=12;
 --
 -- AUTO_INCREMENT for table `brukere`
 --
 ALTER TABLE `brukere`
-MODIFY `brukerID` int(5) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
+MODIFY `brukerID` int(5) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
 --
--- Begrensninger for dumpede tabeller
+-- Constraints for dumped tables
 --
 
 --
--- Begrensninger for tabell `booking`
+-- Constraints for table `booking`
 --
 ALTER TABLE `booking`
 ADD CONSTRAINT `booking_ibfk_1` FOREIGN KEY (`brukerID`) REFERENCES `brukere` (`brukerID`),
 ADD CONSTRAINT `booking_ibfk_2` FOREIGN KEY (`romNr`) REFERENCES `rom` (`romNr`);
 
 --
--- Begrensninger for tabell `bookingTimer`
+-- Constraints for table `bookingTimer`
 --
 ALTER TABLE `bookingTimer`
 ADD CONSTRAINT `bookingtimer_ibfk_1` FOREIGN KEY (`bookingID`) REFERENCES `booking` (`bookingID`),
