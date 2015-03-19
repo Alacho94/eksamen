@@ -4,7 +4,10 @@
     
     // Start på tabell-script
     if (isset($_POST['submit'])) {
+        // Vi starter med å se hvilken submit button som er brukt.
         if ($_POST['submit'] == "Hent mine bookinger") {
+            
+            // Leter etter brukernavn og passord, evt sender tilbake feilmeldinger.
             if (empty($_POST['brukernavn'])) {
                 $error[] = "Du må skrive inn et brukernavn.";   
             } else {
@@ -16,6 +19,7 @@
                 $passord = $_POST['passord'];
             }
             
+            // Hvis det ikke finnes noen feilmeldinger så vil den registrere rettigheter og evt. lage et filter.
             if (!isset($error)) {
                 if (brukerFinnes($brukernavn, $passord)) {
                     $brukerID = idFraBrukernavn($brukernavn);
@@ -35,6 +39,7 @@
             if (!empty($_POST['booking']) && isset($_POST['booking'])) {
                 $bookingID = $_POST['booking'];
                 
+                // Må kjøre to sql, queries da det skal fjernes fra to tabeller med foreign-key koblet sammen, det er her også avhengig hvilken rekkefølge som infoen slettes i.
                 $sql = $database->prepare("DELETE FROM bookingTimer WHERE bookingID = :bookingID");
                 $sql->bindParam(':bookingID', $bookingID, PDO::PARAM_INT);
                 $sql->execute();
@@ -52,6 +57,7 @@
     // Slutt på tabell-script
 
     require 'core/header.php';
+    // Ser etter et suksess parameter i URL, og evt. gir en popup melding.
     if (isset($suksess) && $suksess == 'fjernetBooking') {
         echo '<script type="text/javascript">alert("Suksess, du har fjernet din booking.");</script>';
     }
@@ -61,6 +67,8 @@
     if (isset($brukerID) && !empty($brukerID)) {
         echo '<p>Hei, ' . $brukernavn . '. Her er din oversikt over bookede grupperom:</p>';
         if (isset($error)) echo printError($error);
+        
+        // En query som henter ut rom booking og info fra mange diverse tabeller som hører sammen.
         $sql = $database->prepare("
             SELECT booking.bookingID AS bookingID, brukere.brukernavn AS brukernavn, booking.romNr AS romNr, booking.dato AS dato, MIN(timer.fraTid) AS fraTid, MAX(timer.tilTid) AS tilTid, rom.kapasitet AS kapasitet, rom.projektor AS projektor FROM booking
             JOIN bookingTimer ON bookingTimer.bookingID = booking.bookingID
@@ -71,12 +79,14 @@
             GROUP BY booking.bookingID
             ORDER BY booking.dato ASC, timer.fraTid ASC
         ;");
+        // legger til filter hvis det finnes
         if (!empty($filter)) $sql->bindParam(':brukerID', $brukerID, PDO::PARAM_INT);
         $enDato = date("Y-m-d");
         $sql->bindParam(':dagensDato', $enDato, PDO::PARAM_STR);
         $sql->setFetchMode(PDO::FETCH_OBJ);
         $sql->execute();
         
+        // sjekker om noen rom finnes.
         if ($sql->rowCount() > 0) {
             echo '<div id="romOversikt">';
             while ($booking = $sql->fetch()) {
@@ -103,11 +113,13 @@
     ?>
         <p>Skriv inn ditt brukernavn og passord for å få en oversikt over hvilke rom du har booket, og kan fjerne.</p>
         <?php if (isset($error)) echo printError($error); ?>
-
+        
+        <!-- Login form for å få tilgang til riktige bookinger -->
         <form method="post" action="endreBooking" id="hentDinTabell">
-        <input type="text" name="brukernavn" autofocus="autofocus" placeholder="Brukernavn" maxlength="10" <?php if (isset($brukernavn) && !empty($brukernavn)) echo 'value="' . $brukernavn . '"'; ?> />
-        <input type="password" name="passord" placeholder="Passord" maxlength="30" />
-        <input type="submit" name="submit" value="Hent mine bookinger" />
+            <input type="text" name="brukernavn" autofocus="autofocus" placeholder="Brukernavn" maxlength="10" <?php if (isset($brukernavn) && !empty($brukernavn)) echo 'value="' . $brukernavn . '"'; ?> />
+            <input type="password" name="passord" placeholder="Passord" maxlength="30" />
+            <input type="submit" name="submit" value="Hent mine bookinger" />
+            <script src="js/placeholders.min.js"></script>
         </form>
     <?php
     }

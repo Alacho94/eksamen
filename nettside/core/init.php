@@ -67,7 +67,8 @@
             return false;
         }
     }
-
+    
+    // Denne funksjonen henter ut brukernavn fra bruker-ID
     function idFraBrukernavn($brukernavn) {
         global $database;
         
@@ -78,7 +79,8 @@
         
         return $id;
     }
-
+    
+    // Denne funksjonen henter ut brukerens rettigheter ut i fra brukernavn
     function typeFraBrukernavn($brukernavn) {
         global $database;
         
@@ -89,11 +91,13 @@
         
         return $type;
     }
-
+    
+    // Denne funksjonen skriver ut errorer, ut i fra en php array.
     function printError($error) {
         return '<ul class="error"><li>' . implode('</li><li>', $error) . '</li></ul>';
     }
-
+    
+    // En annen error funksjon som brukes i bookRom.php for å sende error til hjem.php
     function error($msg, $dato, $romNr) {
 		$error = $msg;
         $dato = datoFormatering($dato);
@@ -101,6 +105,7 @@
 		exit;
 	}
 
+    // En funksjon som teller hvor mange timer som eksisterer totalt på hvert rom.
     function totalTimer() {
         global $database;
         
@@ -110,7 +115,8 @@
         
         return $verdi;
     }
-
+    
+    // En funksjon som teller hvor mange timer som er registrert på et rom på en dag.
     function antallReserverteTimer($romNr, $dato) {
         global $database;
         

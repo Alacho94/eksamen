@@ -1,5 +1,7 @@
+#En funksjon som gjør at man ikke trenger .php som filavslutning
 RewriteEngine On
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule ^([^\.]+)$ $1.php [NC,L]
 
+#Erstatter index-fil som standard index og setter hjem.php
 DirectoryIndex hjem.php
